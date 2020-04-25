@@ -1,17 +1,51 @@
-//PostCard component
-//To y Msg dinamico
-//From y Fecha puede ser fijo
-//Subirlo a Github
-
+<html>
 <head>
 	<style>
-		.container {
-			font-size: 3rem;
+		.postcard {
+			background: gray;
+			font-size: 1em;
+			height: 500px;
+			display: flex;
+			flex-flow: column;
+			justify-content: space-between;
+		}
+		.postcard header{
+			position: static;
+			padding: 1.5em;
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		.postcard footer {
+			position: static;
+			padding: 1.5em;
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		.postcard div {
+			position: static;
+			padding: 1.5em;
+			display: flex;
+			height: 100px;
+			justify-content: space-around;
+			flex-flow: column;
+			align-items: space-between;
+		}
+
+		.postcard div h2 {
+			position: relative;
+			padding: 1.5em;
+			display: flex;
+			height: 100px;
+			justify-content: center;		
 		}
 	</style>
 </head>
 <body>
-	<div id="root"></div>
+	<div id="root">
+		<h1>hola</h1>
+	</div>
 
 	<!-- con estas dos lineas ya se tiene disponible react en este html-->
 	<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
@@ -21,6 +55,36 @@
 	<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 
 	<script type="text/babel">
-		
+		const toJSX = 'To: Alain';
+	    const msgJSX = 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?';
+
+		//Esto es un componente
+		const Postcard = (props) => {
+		    console.log(props)
+			return (
+				<div {...props}/>
+			)
+		}
+
+		Postcard.propTypes = {
+			to: PropTypes.string.isRequired,
+			msg: PropTypes.string.isRequired,
+		}
+
+		//React.Fragment se usa para poder poner mas de un elemento JSX
+		//Esto equivale a poner solamente <>
+		const elementJSX = (
+			<>
+				<Postcard className='postcard' to={toJSX} msg={msgJSX}>
+					<header>Fecha: 24/04/2020</header>
+					<div><h1>{toJSX}</h1> <h4>{msgJSX}</h4></div>
+					<footer>From: H. Rackham</footer>
+				</Postcard>
+			</>
+		);
+
+		const rootElement = document.getElementById('root');
+		ReactDOM.render(elementJSX, rootElement);
 	</script>
 </body>
+</html>
