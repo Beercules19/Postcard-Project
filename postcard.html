@@ -111,20 +111,24 @@
 		function App() {
 			const [to, setTo] = React.useState(window.localStorage.getItem('to') || '');
 			const [msg, setMsg] = React.useState(window.localStorage.getItem('msg') || '');
-
-			React.useEffect(() => {
-				window.localStorage.setItem('to', to);
-			});
+			
+			function handleclick() {
+				alert(`Enviando a ${to}`);
+			}
 
 			function handleChange(event) {
 				setTo(event.target.value);
 		 	}
+
+			function onChange(event) {
+				setMsg(event.target.value);
+			}
 			return (
 				<Postcard className='postcard'>
 					<header>Fecha: 24/04/2020</header>
 					<div>
 						<label className="text-sm my-2 font-bold" htmlFor="to">
-							For whom is intended
+							For whom is intended:
 						</label>
 						<input
 							id="to"
@@ -132,12 +136,27 @@
 							value={to}
 							onChange={handleChange}
 						/>
+						<label className="text-sm my-2 font-bold" htmlFor="msg">
+							Message to be sent:
+						</label>
+						<input
+							id="msg"
+							className="border border-grat-500 py-2 px-3 mb-5"
+							value={msg}
+							onChange={onChange}
+						/>
 						<h2>To: {to}</h2>
 						<h2>From: H. Rackham</h2>
 						<div>
 							<img width="50%" src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/country-sunrise-stephanie-laird.jpg"></img>
 							<h4>{msg}</h4>
 						</div>
+						<button
+							className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mb-5 rounded"
+							onClick={handleclick}
+						>
+							Enviar
+						</button>
 					</div>
 				</Postcard>
 			) 
