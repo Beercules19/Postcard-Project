@@ -68,7 +68,7 @@
 		//const [to, setTo] = React.useState(window.localStorage.getItem('to') || '');
 		//const [msg, setMsg] = React.useState(window.localStorage.getItem('msg') || '');
 		const backgroundColorJSX = '';
-		const fontStyleJSX = '';*/
+		const fontStyleJSX = '';
 
 		//Esto es un componente
 		const Postcard = (props) => {
@@ -79,12 +79,11 @@
 		}
 
 		Postcard.propTypes = {
-			to: PropTypes.string.isRequired,
-			msg: PropTypes.string.isRequired,
+			to: PropTypes.any.isRequired,
+			msg: PropTypes.any.isRequired,
 			backgroundColor: PropTypes.string.isRequired,
 			fontStyle: PropTypes.string.isRequired,
 		}
-/*
 		//React.Fragment se usa para poder poner mas de un elemento JSX
 		//Esto equivale a poner solamente <>
 		const elementJSX = (
@@ -108,6 +107,33 @@
 			</>
 		); */
 
+		function Postcard(props) {
+			const {
+				className,
+				colorBg,
+				font,
+				...rest
+			} = props;
+
+			const backgroundColorJSX = colorBg ? { backgroundColor: colorBg } : undefined;
+			const fontStyleJSX = font ? { fontStyle: font } : undefined;
+
+			return (
+				<div
+					className={`postcard`}
+					style={{...fontStyleJSX, ...backgroundColorJSX}}
+					{...rest}
+				/>
+			)
+		}
+
+		Postcard.propTypes = {
+			to: PropTypes.any.isRequired,
+			msg: PropTypes.any.isRequired,
+			colorBg: PropTypes.string.isRequired,
+			font: PropTypes.string.isRequired,
+		}
+
 		function App() {
 			const [to, setTo] = React.useState(window.localStorage.getItem('to') || '');
 			const [msg, setMsg] = React.useState(window.localStorage.getItem('msg') || '');
@@ -124,7 +150,7 @@
 				setMsg(event.target.value);
 			}
 			return (
-				<Postcard className='postcard'>
+				<Postcard className='postcard' colorBg='lightgreen' font='italic'>
 					<header>Fecha: 24/04/2020</header>
 					<div>
 						<label className="text-sm my-2 font-bold" htmlFor="to">
